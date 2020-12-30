@@ -6,16 +6,25 @@ import { join } from 'path';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RecipeModule } from './recipe/recipe.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
-    TypeOrmModule.forRoot({
-      type: 'mongodb',
-      url: 'mongodb://localhost:27017/fork2?retryWrites=false',
-      autoLoadEntities: true,
+    ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        type: 'mongodb',
+        url: configService.get<string>('MONGODB_URL'),
+        useNewUrlParser: true,
+        synchronize: true,
+        logging: true,
+        autoLoadEntities: true,
+      }),
     }),
     UserModule,
     RecipeModule,
