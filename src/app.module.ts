@@ -12,6 +12,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   imports: [
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      playground: true,
     }),
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
