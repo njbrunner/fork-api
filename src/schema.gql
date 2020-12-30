@@ -1,0 +1,23 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Recipe {
+  id: Int!
+  name: String!
+  description: String!
+}
+
+type Query {
+  hello: String!
+  getRecipes: [Recipe!]!
+}
+
+type Mutation {
+  createRecipe(input: RecipeInput!): Recipe!
+}
+
+input RecipeInput {
+  name: String!
+  description: String!
+}
