@@ -6,19 +6,19 @@ import { Recipe } from './recipe.entity';
 
 @Injectable()
 export class RecipeService {
-    constructor(
-        @InjectRepository(Recipe)
-        private readonly recipeRepository: MongoRepository<Recipe>
-    ){}
+  constructor(
+    @InjectRepository(Recipe)
+    private readonly recipeRepository: MongoRepository<Recipe>,
+  ) {}
 
-    async findAll(): Promise<Recipe[]> {
-        return this.recipeRepository.find();
-    }
+  async findAll(): Promise<Recipe[]> {
+    return this.recipeRepository.find();
+  }
 
-    async create(input: RecipeInput): Promise<Recipe> {
-        const recipe = new Recipe();
-        recipe.name = input.name;
-        recipe.description = input.description;
-        return this.recipeRepository.save(recipe);
-    }
+  async create(input: RecipeInput): Promise<Recipe> {
+    const recipe = new Recipe();
+    recipe.name = input.name;
+    recipe.description = input.description;
+    return this.recipeRepository.save(recipe);
+  }
 }
